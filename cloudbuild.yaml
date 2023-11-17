@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/flaskhelloworld-405418/flaskhelloworld', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/flaskhelloworld-405418/flaskhelloworld']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'flaskhelloworld', '--image', 'gcr.io/flaskhelloworld-405418/flaskhelloworld', '--region', 'us-central1', '--platform', 'managed','--port','80']
+images:
+- gcr.io/flaskhelloworld-405418/flaskhelloworld
